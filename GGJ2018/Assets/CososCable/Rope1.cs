@@ -127,7 +127,7 @@ public class Rope1 : MonoBehaviour {
 
     internal void grab()
     {
-        motor.target = playerHand.transform;
+        motor.target = playerHand;
         motor.Grab();
     }
 }

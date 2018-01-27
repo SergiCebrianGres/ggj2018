@@ -65,6 +65,7 @@ public class GameController : MonoBehaviour {
                 {
                     found = true;
                     r.grab();
+                    status = GameControllerStatus.HOLDING;
                 }
             }
 
@@ -75,6 +76,8 @@ public class GameController : MonoBehaviour {
                 cables.Add(r);
                 r.MainSwitch = closestSwitch;
                 r.playerHand = playerHand;
+                r.grab();
+                status = GameControllerStatus.HOLDING;
             }
         }
     }
