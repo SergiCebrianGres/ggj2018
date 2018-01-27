@@ -1,10 +1,95 @@
 fileFormatVersion: 2
-guid: f787adb09e6539c4e81a7e1b66add58b
-timeCreated: 1517063367
+guid: 436efe7c897198c4b934e6ad1d44a40e
+timeCreated: 1517071988
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    100000: cable
+    100002: cable.001
+    100004: cable.002
+    100006: Camera
+    100008: //RootNode
+    100010: Cube
+    100012: Lamp
+    100014: Plane
+    100016: Plane.001
+    100018: Plane.002
+    100020: Plane.003
+    100022: Plane.004
+    100024: Plane.005
+    100026: Plane.006
+    100028: Plane.007
+    100030: Untitled
+    400000: cable
+    400002: cable.001
+    400004: cable.002
+    400006: Camera
+    400008: //RootNode
+    400010: Cube
+    400012: Lamp
+    400014: Plane
+    400016: Plane.001
+    400018: Plane.002
+    400020: Plane.003
+    400022: Plane.004
+    400024: Plane.005
+    400026: Plane.006
+    400028: Plane.007
+    400030: Untitled
+    2000000: Camera
+    2100000: hgf
+    2100002: bgi
+    2100004: body
+    2100006: scree
+    2100008: metal
+    2100010: morts
+    2100012: sw
+    2100014: green
+    2100016: ho,
+    2100018: whitw
+    2100020: screen
+    2100022: No Name
+    2300000: cable
+    2300002: cable.001
+    2300004: cable.002
+    2300006: Cube
+    2300008: Plane
+    2300010: Plane.001
+    2300012: Plane.002
+    2300014: Plane.003
+    2300016: Plane.004
+    2300018: Plane.005
+    2300020: Plane.006
+    2300022: Plane.007
+    2300024: Untitled
+    3300000: cable
+    3300002: cable.001
+    3300004: cable.002
+    3300006: Cube
+    3300008: Plane
+    3300010: Plane.001
+    3300012: Plane.002
+    3300014: Plane.003
+    3300016: Plane.004
+    3300018: Plane.005
+    3300020: Plane.006
+    3300022: Plane.007
+    3300024: Untitled
+    4300000: cable.002
+    4300002: cable.001
+    4300004: cable
+    4300006: Plane.006
+    4300008: Plane.005
+    4300010: Plane.007
+    4300012: Plane.004
+    4300014: Untitled
+    4300016: Plane.003
+    4300018: Plane.002
+    4300020: Plane.001
+    4300022: Cube
+    4300024: Plane
+    10800000: Lamp
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -79,7 +164,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 2
+  animationType: 0
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
