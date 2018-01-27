@@ -6,6 +6,7 @@ TagManager:
   tags:
   - IA
   - Switch
+  - Computer
   layers:
   - Default
   - TransparentFX
