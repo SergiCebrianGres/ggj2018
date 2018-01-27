@@ -27,6 +27,8 @@ public class IndependentMovementController : MonoBehaviour {
             {
                 shouldMove = false;
                 GetComponent<IAController>().NotifyEndOfRoad();
+                agent.updatePosition = false;
+                agent.updateRotation = false;
 
             }
 
@@ -40,6 +42,8 @@ public class IndependentMovementController : MonoBehaviour {
     public void GoToFood()
     {
         shouldMove = true;
+        agent.updatePosition = true;
+        agent.updateRotation = true;
         target = GameObject.Find("Food").transform.position;
 
     }
@@ -47,12 +51,16 @@ public class IndependentMovementController : MonoBehaviour {
     public void GoToBathroom()
     {
         shouldMove = true;
+        agent.updatePosition = true;
+        agent.updateRotation = true;
         target = GameObject.Find("Bathroom").transform.position;
     }
 
     public void GoToTable(Vector3 target)
     {
         shouldMove = true;
+        agent.updatePosition = true;
+        agent.updateRotation = true;
         this.target = target;
         
     }
