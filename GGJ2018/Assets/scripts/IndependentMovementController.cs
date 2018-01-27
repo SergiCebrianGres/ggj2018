@@ -13,7 +13,6 @@ public class IndependentMovementController : MonoBehaviour {
     void Start()
     {
         shouldMove = false;
-        target = GameObject.Find("Target").transform.position;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -34,7 +33,6 @@ public class IndependentMovementController : MonoBehaviour {
     public void GoToFood()
     {
         shouldMove = true;
-        Debug.Log(GameObject.Find("Food"));
         target = GameObject.Find("Food").transform.position;
 
     }
@@ -54,12 +52,13 @@ public class IndependentMovementController : MonoBehaviour {
 
     protected bool pathComplete()
     {
-        if (Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance)
+        //Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance
+        if (Vector3.Distance(agent.destination, agent.transform.position) <= 1f)
         {
-            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
-            {
+            //if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+            //{
                 return true;
-            }
+            //}
         }
 
         return false;
