@@ -7,8 +7,6 @@ public class Motor : MonoBehaviour
 {
     private Rigidbody rb;
     public bool grabbed = false;
-    public bool connected;
-    public bool broken;
     public float speed = 100f;
     private float lerpSpeed = .45f;
 

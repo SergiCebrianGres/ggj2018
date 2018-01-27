@@ -6,12 +6,18 @@ using UnityEngine;
 public class Rope1 : MonoBehaviour {
     private LineRenderer lr;
 
-    public Rigidbody player;
+    public bool connected;
+    public bool broken;
+
+    public Material looseMat;
+    public Material brokenMat;
+    public Material onlineMat;
+    
     public Transform playerHand;
     public GameObject MainSwitch;
     public GameObject cablePiece;
 
-    private GameObject MainNode;
+    public GameObject MainNode;
     private GameObject LastNode;
     private HingeJoint worldHinge;
     private Motor motor;
@@ -96,8 +102,7 @@ public class Rope1 : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            motor.target = playerHand.transform;
-            motor.Grab();
+            grab();
         }
 
         if ((LastNode.transform.position-MainSwitch.transform.position).sqrMagnitude > .2f)
@@ -115,5 +120,14 @@ public class Rope1 : MonoBehaviour {
                 if ((t.position - transform.GetChild(i + 1).position).sqrMagnitude > 4f) motor.UnGrab();
             }
         }
+        if (connected) lr.material = onlineMat;
+        else if (broken) lr.material = brokenMat;
+        else lr.material = looseMat;
+    }
+
+    internal void grab()
+    {
+        motor.target = playerHand.transform;
+        motor.Grab();
     }
 }

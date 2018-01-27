@@ -232,10 +232,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece752ae4e84e114cb80f15f9f2679a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  connected: 0
+  broken: 0
+  looseMat: {fileID: 2100000, guid: 957684a60df8f0842a12b6da57713545, type: 2}
+  brokenMat: {fileID: 2100000, guid: effda23cf14d4324ca61f1e9ca4f7385, type: 2}
+  onlineMat: {fileID: 2100000, guid: d9012118ad5dd9e4fac21f353a5db46b, type: 2}
   playerHand: {fileID: 0}
   MainSwitch: {fileID: 0}
   cablePiece: {fileID: 1522761280514454, guid: a59a1fd0f47265541bca70ce7ecb6f23, type: 2}
+  MainNode: {fileID: 0}
   maxLength: 45
   Length: 0
 --- !u!114 &114608945510280090
@@ -250,8 +255,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabbed: 0
-  connected: 0
-  broken: 0
   speed: 5
   target: {fileID: 0}
 --- !u!114 &114742697629090664
@@ -266,8 +269,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabbed: 0
-  connected: 0
-  broken: 0
   speed: 5
   target: {fileID: 0}
 --- !u!120 &120916697745738560
