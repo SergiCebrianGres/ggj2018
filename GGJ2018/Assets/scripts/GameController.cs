@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
     private GameControllerStatus status;
-    private GameObject dummy;
+    public GameObject dummy;
 
 	// Use this for initialization
 	void Start () {
         status = GameControllerStatus.FREE_MOV;
-        dummy = GameObject.Find("Cube");
+        //dummy = GameObject.Find("EthanBody");
 	}
 	
 	// Update is called once per frame
