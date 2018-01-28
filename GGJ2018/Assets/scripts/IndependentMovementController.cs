@@ -67,7 +67,6 @@ public class IndependentMovementController : MonoBehaviour {
 
     protected bool pathComplete()
     {
-        //Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance
         if (Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance)
         {
             if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
@@ -77,6 +76,14 @@ public class IndependentMovementController : MonoBehaviour {
         }
 
         return false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Cable")
+        {
+            GameController.instance.SteppedOn(other.transform.parent.parent.GetComponent<Rope1>());
+        }
     }
 
 }

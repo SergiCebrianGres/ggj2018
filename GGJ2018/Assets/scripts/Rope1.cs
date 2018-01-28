@@ -3,23 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rope1 : MonoBehaviour {
+public class Rope1 : MonoBehaviour
+{
     private LineRenderer lr;
 
-    public bool connected;
-    public bool broken;
-
-    public Material looseMat;
-    public Material brokenMat;
-    public Material onlineMat;
-    
+    public Rigidbody player;
     public Transform playerHand;
     public GameObject MainSwitch;
     public GameObject cablePiece;
 
+    public Material onlineMat;
+    public Material brokenMat;
+    public Material looseMat;
+
+    public bool online = false;
+    public bool broken = false;
+
     public GameObject MainNode;
     private GameObject LastNode;
     private HingeJoint worldHinge;
+    public GameObject connectedComputer;
     private Motor motor;
 
     public int maxLength = 100;
@@ -27,6 +30,11 @@ public class Rope1 : MonoBehaviour {
 
     internal Rigidbody RBody;
     internal void Start()
+    {
+        //Init();
+    }
+
+    public void Init()
     {
         lr = GetComponent<LineRenderer>();
 
@@ -44,26 +52,9 @@ public class Rope1 : MonoBehaviour {
             {
                 HingeJoint hinge = t.gameObject.AddComponent<HingeJoint>();
                 hinge.connectedBody = transform.GetChild(i - 1).GetComponent<Rigidbody>();
-                //hinge.useSpring = true;
+                hinge.useSpring = true;
                 hinge.enableCollision = true;
-                /*
-                hinge.useLimits = true;
-                var lim = hinge.limits;
-                lim.contactDistance = 100;
-                lim.max = 45;
-                hinge.limits = lim;
-                //hinge.enablePreprocessing = false;
-
-                /*
-                SpringJoint spring = t.gameObject.AddComponent<SpringJoint>();
-                spring.connectedBody = transform.GetChild(i - 1).GetComponent<Rigidbody>();
-                spring.damper = 10;
-                spring.spring = 75;
-                spring.maxDistance = .01f;
-                spring.tolerance = .025f;
-                spring.enableCollision = true;
-                //spring.enablePreprocessing = false;
-                */
+                hinge.enablePreprocessing = false;
             }
         }
         lr.positionCount += 1;
@@ -73,39 +64,36 @@ public class Rope1 : MonoBehaviour {
 
     public void AddCable()
     {
-        if (Length<=maxLength)
-        { 
+        if (Length <= maxLength)
+        {
             lr.positionCount += 1;
 
             Transform t = LastNode.transform;
-            GameObject go = Instantiate(cablePiece, MainSwitch.transform.position, t.rotation);
-            
+            GameObject go = Instantiate(cablePiece, MainSwitch.transform.position, Quaternion.identity);//t.rotation);
+
             HingeJoint hinge = go.AddComponent<HingeJoint>();
             hinge.connectedBody = LastNode.GetComponent<Rigidbody>();
             hinge.useSpring = true;
+            /*
+            var s = hinge.spring;
+            s.spring = 1;
+            s.damper = 10;
+            hinge.spring = s;
+            */
             hinge.enableCollision = true;
             hinge.enablePreprocessing = false;
 
             go.transform.SetParent(transform);
-
-            /*
-            worldHinge = go.AddComponent<HingeJoint>();
-            worldHinge.useSpring = true;
-            */
+            
             LastNode = go;
             lr.SetPosition(lr.positionCount - 1, MainSwitch.transform.position);
             Length++;
         }
-    }   
+    }
 
     internal void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            grab();
-        }
-
-        if ((LastNode.transform.position-MainSwitch.transform.position).sqrMagnitude > .2f)
+        if ((LastNode.transform.position - MainSwitch.transform.position).sqrMagnitude > .15f)
         {
             AddCable();
         }
@@ -115,19 +103,44 @@ public class Rope1 : MonoBehaviour {
         {
             Transform t = transform.GetChild(i);
             lr.SetPosition(i, t.position);
-            if (motor.grabbed && i > 0 && i < Length - 1)
+            if ((motor.grabbed || motor.connected) && i > 0 && i < Length - 1)
             {
-                if ((t.position - transform.GetChild(i + 1).position).sqrMagnitude > 4f) motor.UnGrab();
+                if ((t.position - transform.GetChild(i + 1).position).sqrMagnitude > 4f)
+                {
+                    if (motor.grabbed) motor.UnGrab();
+                    if (motor.connected)
+                    {
+                        online = false;
+                        motor.UnConnect();
+                    }
+                }
             }
         }
-        if (connected) lr.material = onlineMat;
-        else if (broken) lr.material = brokenMat;
-        else lr.material = looseMat;
+
+        if (broken) lr.material = brokenMat;
+        else if (online) lr.material = onlineMat;
+        else lr.material = looseMat;    
     }
 
-    internal void grab()
+    public void grab()
     {
-        motor.target = playerHand;
+        motor.target = playerHand.transform;
         motor.Grab();
+    }
+
+    public void connectTo(GameObject go)
+    {
+        online = true;
+        connectedComputer = go;
+        motor.target = go.transform;
+        motor.UnGrab();
+        motor.Connect();
+    }
+
+    public void disconnect()
+    {
+        online = false;
+        connectedComputer = null;
+        motor.UnConnect();
     }
 }

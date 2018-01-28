@@ -16,7 +16,8 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.X))
         {
-            GameController.instance.tryGrab();
+            if (GameController.instance.status == GameController.GameControllerStatus.FREE_MOV) GameController.instance.tryGrab();
+            if (GameController.instance.status == GameController.GameControllerStatus.HOLDING) GameController.instance.tryConnect();
         }
     }
 }
