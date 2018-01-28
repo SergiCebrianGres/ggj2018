@@ -3,16 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rope1 : MonoBehaviour {
+public class Rope1 : MonoBehaviour
+{
     private LineRenderer lr;
 
-    public bool connected;
-    public bool broken;
-
-    public Material looseMat;
-    public Material brokenMat;
-    public Material onlineMat;
-    
+    public Rigidbody player;
     public Transform playerHand;
     public GameObject MainSwitch;
     public GameObject cablePiece;
@@ -27,6 +22,11 @@ public class Rope1 : MonoBehaviour {
 
     internal Rigidbody RBody;
     internal void Start()
+    {
+        //Init();
+    }
+
+    public void Init()
     {
         lr = GetComponent<LineRenderer>();
 
@@ -44,26 +44,9 @@ public class Rope1 : MonoBehaviour {
             {
                 HingeJoint hinge = t.gameObject.AddComponent<HingeJoint>();
                 hinge.connectedBody = transform.GetChild(i - 1).GetComponent<Rigidbody>();
-                //hinge.useSpring = true;
+                hinge.useSpring = true;
                 hinge.enableCollision = true;
-                /*
-                hinge.useLimits = true;
-                var lim = hinge.limits;
-                lim.contactDistance = 100;
-                lim.max = 45;
-                hinge.limits = lim;
-                //hinge.enablePreprocessing = false;
-
-                /*
-                SpringJoint spring = t.gameObject.AddComponent<SpringJoint>();
-                spring.connectedBody = transform.GetChild(i - 1).GetComponent<Rigidbody>();
-                spring.damper = 10;
-                spring.spring = 75;
-                spring.maxDistance = .01f;
-                spring.tolerance = .025f;
-                spring.enableCollision = true;
-                //spring.enablePreprocessing = false;
-                */
+                hinge.enablePreprocessing = false;
             }
         }
         lr.positionCount += 1;
@@ -73,39 +56,36 @@ public class Rope1 : MonoBehaviour {
 
     public void AddCable()
     {
-        if (Length<=maxLength)
-        { 
+        if (Length <= maxLength)
+        {
             lr.positionCount += 1;
 
             Transform t = LastNode.transform;
-            GameObject go = Instantiate(cablePiece, MainSwitch.transform.position, t.rotation);
-            
+            GameObject go = Instantiate(cablePiece, MainSwitch.transform.position, Quaternion.identity);//t.rotation);
+
             HingeJoint hinge = go.AddComponent<HingeJoint>();
             hinge.connectedBody = LastNode.GetComponent<Rigidbody>();
             hinge.useSpring = true;
+            /*
+            var s = hinge.spring;
+            s.spring = 1;
+            s.damper = 10;
+            hinge.spring = s;
+            */
             hinge.enableCollision = true;
             hinge.enablePreprocessing = false;
 
             go.transform.SetParent(transform);
-
-            /*
-            worldHinge = go.AddComponent<HingeJoint>();
-            worldHinge.useSpring = true;
-            */
+            
             LastNode = go;
             lr.SetPosition(lr.positionCount - 1, MainSwitch.transform.position);
             Length++;
         }
-    }   
+    }
 
     internal void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            grab();
-        }
-
-        if ((LastNode.transform.position-MainSwitch.transform.position).sqrMagnitude > .2f)
+        if ((LastNode.transform.position - MainSwitch.transform.position).sqrMagnitude > .15f)
         {
             AddCable();
         }
@@ -120,14 +100,11 @@ public class Rope1 : MonoBehaviour {
                 if ((t.position - transform.GetChild(i + 1).position).sqrMagnitude > 4f) motor.UnGrab();
             }
         }
-        if (connected) lr.material = onlineMat;
-        else if (broken) lr.material = brokenMat;
-        else lr.material = looseMat;
     }
 
-    internal void grab()
+    public void grab()
     {
-        motor.target = playerHand;
+        motor.target = playerHand.transform;
         motor.Grab();
     }
 }

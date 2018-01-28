@@ -17,7 +17,7 @@ public class Motor : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
     }
-    
+
     void FixedUpdate()
     {
         if (grabbed)
@@ -32,6 +32,7 @@ public class Motor : MonoBehaviour
 
     public void Grab()
     {
+        if (rb == null) rb = GetComponent<Rigidbody>();
         grabbed = true;
         rb.useGravity = false;
         rb.isKinematic = true;
@@ -39,6 +40,8 @@ public class Motor : MonoBehaviour
 
     public void UnGrab()
     {
+        GameController.instance.status = GameController.GameControllerStatus.FREE_MOV;
+        if (rb == null) rb = GetComponent<Rigidbody>();
         grabbed = false;
         rb.useGravity = true;
         rb.isKinematic = false;

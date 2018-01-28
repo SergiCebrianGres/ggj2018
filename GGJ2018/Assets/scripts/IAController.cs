@@ -138,7 +138,7 @@ public class IAController : MonoBehaviour {
 
     private void BroadcastWait()
     {
-        Debug.Log("WAIT!!!");
+        //Debug.Log("WAIT!!!");
         GameObject[] objects = GameObject.FindGameObjectsWithTag("IA");
         switch(state){
             case IAState.FOOD:

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
-    private GameControllerStatus status;
+    public GameControllerStatus status;
     private GameObject closestSwitch;
     public GameObject player;
     public Transform playerHand;
@@ -30,6 +30,10 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     private void InitGame () {
         status = GameControllerStatus.FREE_MOV;
+        foreach (var r in cables)
+        {
+            r.Init();
+        }
 	}
 	
 	// Update is called once per frame
@@ -61,21 +65,23 @@ public class GameController : MonoBehaviour {
             while (!found && i < cables.Count)
             {
                 Rope1 r = cables[i];
-                if ((r.MainNode.transform.position-player.transform.position).sqrMagnitude < 1)
+                if ((r.MainNode.transform.position-player.transform.position).sqrMagnitude < .75f)
                 {
                     found = true;
                     r.grab();
                     status = GameControllerStatus.HOLDING;
                 }
+                i++;
             }
 
             if (!found && closestSwitch != null)
             {
                 GameObject go = Instantiate(cablePrefab, closestSwitch.transform.position, Quaternion.identity);
                 Rope1 r = go.GetComponent<Rope1>();
-                cables.Add(r);
-                r.MainSwitch = closestSwitch;
+                r.MainSwitch = closestSwitch.gameObject;
                 r.playerHand = playerHand;
+                r.Init();
+                cables.Add(r);  
                 r.grab();
                 status = GameControllerStatus.HOLDING;
             }
