@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
     public GameControllerStatus status;
 
-
     private GameObject closestSwitch;
     private GameObject closestComputer;
     private Rope1 grabbedRope;
@@ -76,7 +75,7 @@ public class GameController : MonoBehaviour {
             while (!found && i < cables.Count)
             {
                 Rope1 r = cables[i];
-                if ((r.MainNode.transform.position-player.transform.position).sqrMagnitude < .75f)
+                if ((r.MainNode.transform.position-player.transform.position).sqrMagnitude < .8f)
                 {
                     found = true;
                     r.grab();
