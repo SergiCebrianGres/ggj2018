@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour {
     private Rope1 grabbedRope;
     public GameObject player;
     public Transform playerHand;
-    public float probBreak = 0.02f;
+    public float probBreak = 0.03f;
     
     public GameObject cablePrefab;
 
