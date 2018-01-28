@@ -52,6 +52,7 @@ public class IAController : MonoBehaviour {
         switch (state)
         {
             case IAState.WAITING:
+                transform.rotation = tableOrientation;
                 float luck = Random.Range(0f, 1f);
                 if (timer >= 1)
                 {
