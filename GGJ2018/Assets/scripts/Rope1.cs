@@ -103,9 +103,11 @@ public class Rope1 : MonoBehaviour
         {
             Transform t = transform.GetChild(i);
             lr.SetPosition(i, t.position);
-            if ((motor.grabbed || motor.connected) && i > 0 && i < Length - 1)
+
+            if ( i > 0 && i < Length - 1)
             {
-                if ((t.position - transform.GetChild(i + 1).position).sqrMagnitude > 4f)
+                float dist = (t.position - transform.GetChild(i + 1).position).sqrMagnitude;
+                if ((motor.grabbed || motor.connected) && dist > 4f)
                 {
                     if (motor.grabbed) motor.UnGrab();
                     if (motor.connected)
@@ -113,6 +115,10 @@ public class Rope1 : MonoBehaviour
                         online = false;
                         motor.UnConnect();
                     }
+                }
+                if (dist > 49f)
+                {
+                    Destroy(this.gameObject);
                 }
             }
         }
