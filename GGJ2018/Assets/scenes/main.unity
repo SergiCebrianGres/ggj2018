@@ -13316,8 +13316,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   content: {fileID: 67830246}
-  fullColor: {r: 0.89705884, g: 0.27703288, b: 0.75480205, a: 1}
-  lowColor: {r: 0.6985294, g: 0, b: 0.1589757, a: 1}
+  fullColor: {r: 1, g: 0.6313726, b: 1, a: 1}
+  lowColor: {r: 0, g: 0.41960785, b: 1, a: 1}
 --- !u!1 &1340641335
 GameObject:
   m_ObjectHideFlags: 0
