@@ -78,4 +78,12 @@ public class IndependentMovementController : MonoBehaviour {
         return false;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Cable")
+        {
+            GameController.instance.SteppedOn(other.transform.parent.parent.GetComponent<Rope1>());
+        }
+    }
+
 }

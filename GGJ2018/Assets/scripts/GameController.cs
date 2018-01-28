@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
     private Rope1 grabbedRope;
     public GameObject player;
     public Transform playerHand;
+    public float probBreak = 0.02f;
     
     public GameObject cablePrefab;
 
@@ -97,6 +98,16 @@ public class GameController : MonoBehaviour {
     public void setClosestSwitch(GameObject go)
     {
         closestSwitch = go;
+    }
+
+    public void SteppedOn(Rope1 r)
+    {
+        if (r.online && UnityEngine.Random.Range(0.0f, 1.0f) < probBreak)
+        {
+            Debug.Log("Y voló");
+            connectedComputers.Remove(r.connectedComputer);
+            r.disconnect();
+        }
     }
 
     public void setClosestComputer(GameObject go)

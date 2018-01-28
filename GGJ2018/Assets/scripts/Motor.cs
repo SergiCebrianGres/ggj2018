@@ -68,5 +68,6 @@ public class Motor : MonoBehaviour
         connected = false;
         rb.useGravity = true;
         rb.isKinematic = false;
+        rb.AddForce(target.forward * 10);
     }
 }

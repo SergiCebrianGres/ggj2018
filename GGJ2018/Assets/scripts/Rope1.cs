@@ -16,12 +16,13 @@ public class Rope1 : MonoBehaviour
     public Material brokenMat;
     public Material looseMat;
 
-    private bool online = false;
-    private bool broken = false;
+    public bool online = false;
+    public bool broken = false;
 
     public GameObject MainNode;
     private GameObject LastNode;
     private HingeJoint worldHinge;
+    public GameObject connectedComputer;
     private Motor motor;
 
     public int maxLength = 100;
@@ -130,14 +131,16 @@ public class Rope1 : MonoBehaviour
     public void connectTo(GameObject go)
     {
         online = true;
+        connectedComputer = go;
         motor.target = go.transform;
         motor.UnGrab();
         motor.Connect();
     }
 
-    public void disconnect(GameObject go)
+    public void disconnect()
     {
         online = false;
+        connectedComputer = null;
         motor.UnConnect();
     }
 }
