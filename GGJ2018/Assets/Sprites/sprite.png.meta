@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c00d70f6be515b34d87f7641ed22a8da
-timeCreated: 1517055800
+timeCreated: 1517139612
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -85,12 +85,12 @@ TextureImporter:
       name: sprite_0
       rect:
         serializedVersion: 2
-        x: 97
-        y: 661
-        width: 635
-        height: 71
+        x: 6
+        y: 647
+        width: 790
+        height: 147
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -99,12 +99,12 @@ TextureImporter:
       name: sprite_1
       rect:
         serializedVersion: 2
-        x: 121
-        y: 578
+        x: 105
+        y: 597
         width: 586
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
