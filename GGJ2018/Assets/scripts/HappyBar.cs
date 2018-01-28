@@ -21,11 +21,15 @@ public class HappyBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        fillAmount = content.fillAmount - 0.001f;
-        content.fillAmount = fillAmount;
-        content.color = Color.Lerp(lowColor, fullColor, fillAmount);
 
 	}
+
+    public void RepaintHappiness(double d)
+    {
+        Debug.Log("Repainting with " + d);
+        content.fillAmount = (float)d;
+        content.color = Color.Lerp(lowColor, fullColor, (float)d);
+    }
 
 
 

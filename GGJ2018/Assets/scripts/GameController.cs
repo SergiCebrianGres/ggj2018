@@ -20,6 +20,18 @@ public class GameController : MonoBehaviour {
     public List<Rope1> cables;
     public static GameController instance = null;
 
+    GameObject happybar;
+
+
+    private float luck;
+    private float timer;
+    private bool gameOver;
+    private double happiness;
+    private float accTime;
+
+
+    private int MAX_COMP = 24;
+
     //Awake is always called before any Start functions
     void Awake()
     {
@@ -32,6 +44,17 @@ public class GameController : MonoBehaviour {
         
         DontDestroyOnLoad(gameObject);
         InitGame();
+    }
+
+    private void Start()
+    {
+        luck = UnityEngine.Random.Range(5f, 10f);
+        timer = 0;
+        Camera.main.GetComponent<AudioSource>().loop = true;
+        gameOver = false;
+        happiness = 1d;
+
+        happybar = GameObject.Find("HappyBar");
     }
 
 
@@ -86,7 +109,15 @@ public class GameController : MonoBehaviour {
             {
                 connectedComputers.Add(closestComputer);
                 grabbedRope.connectTo(closestComputer);
-                Camera.main.GetComponent<AudioManager>().GetConnexio();
+                var audio = closestComputer.GetComponent<AudioSource>();
+                audio.clip = Camera.main.GetComponent<AudioManager>().GetConnexio();
+                audio.Play();
+                happiness += (double)((1f / 24));
+                accTime = (float)(0.9 * accTime);
+                if (happiness > 1)
+                {
+                    happiness = 1;
+                }
             }
         } 
     }
@@ -107,8 +138,11 @@ public class GameController : MonoBehaviour {
         {
             Debug.Log("Y voló");
             connectedComputers.Remove(r.connectedComputer);
+            var audio = r.connectedComputer.GetComponent<AudioSource>();
+            audio.clip = Camera.main.GetComponent<AudioManager>().GetDesconnexio();
+            audio.Play();
             r.disconnect();
-            Camera.main.GetComponent<AudioManager>().GetDesconnexio();
+
 
         }
     }
@@ -125,5 +159,47 @@ public class GameController : MonoBehaviour {
 
     public enum GameControllerStatus{
         FREE_MOV, HOLDING
+    }
+
+
+
+
+    void Update()
+    {
+        if (!gameOver)
+        {
+            if (timer >= luck)
+            {
+                var audio = Camera.main.transform.GetChild(0).GetComponent<AudioSource>();
+                audio.clip = Camera.main.GetComponent<AudioManager>().GetQueixa();
+                audio.Play();
+                luck = UnityEngine.Random.Range(15f, 20f);
+                timer = 0;
+            }
+
+            timer += Time.deltaTime;
+
+            if (connectedComputers.Count < MAX_COMP)
+            {
+                happiness -= (Mathf.Log(1f + 0.0005f * accTime) * (float)(MAX_COMP - connectedComputers.Count)) / (1000 + 0.1 * accTime + MAX_COMP);
+            }
+            
+            if (happiness <= 0)
+            {
+                gameOver = true;
+
+            }
+            if(happybar == null)
+            {
+                happybar = GameObject.Find("HappyBar");
+            }
+            var sc = happybar.GetComponent<HappyBar>();
+            if(sc != null)
+            {
+                sc.RepaintHappiness(happiness);
+            }
+        }
+        accTime += Time.deltaTime;
+        
     }
 }
