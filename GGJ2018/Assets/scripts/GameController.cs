@@ -1,15 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
     public GameControllerStatus status;
+
+
     private GameObject closestSwitch;
+    private GameObject closestComputer;
+    private Rope1 grabbedRope;
     public GameObject player;
     public Transform playerHand;
-
-    public GameObject mainSwitch;
+    
     public GameObject cablePrefab;
+
+    public List<GameObject> connectedComputers;
     public List<Rope1> cables;
     public static GameController instance = null;
 
@@ -27,6 +33,7 @@ public class GameController : MonoBehaviour {
         InitGame();
     }
 
+
     // Use this for initialization
     private void InitGame () {
         status = GameControllerStatus.FREE_MOV;
@@ -35,26 +42,6 @@ public class GameController : MonoBehaviour {
             r.Init();
         }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-
-    public GameControllerStatus GetStatus()
-    {
-        return status;
-    }
-
-    public enum GameControllerStatus{
-        FREE_MOV, HOLDING
-    }
-
-    public void setClosestSwitch(GameObject go)
-    {
-        closestSwitch = go;
-    }
 
     public void tryGrab()
     {
@@ -70,6 +57,7 @@ public class GameController : MonoBehaviour {
                     found = true;
                     r.grab();
                     status = GameControllerStatus.HOLDING;
+                    grabbedRope = r;
                 }
                 i++;
             }
@@ -83,8 +71,45 @@ public class GameController : MonoBehaviour {
                 r.Init();
                 cables.Add(r);  
                 r.grab();
+                grabbedRope = r;
                 status = GameControllerStatus.HOLDING;
             }
         }
+    }
+
+    public void tryConnect()
+    {
+        if (status == GameControllerStatus.HOLDING)
+        {
+            if (closestComputer != null && !connectedComputers.Contains(closestComputer))
+            {
+                connectedComputers.Add(closestComputer);
+                grabbedRope.connectTo(closestComputer);
+            }
+        } 
+    }
+
+    public void grabbedNull()
+    {
+        grabbedRope = null;
+    }
+
+    public void setClosestSwitch(GameObject go)
+    {
+        closestSwitch = go;
+    }
+
+    public void setClosestComputer(GameObject go)
+    {
+        closestComputer = go;
+    }
+
+    public GameControllerStatus GetStatus()
+    {
+        return status;
+    }
+
+    public enum GameControllerStatus{
+        FREE_MOV, HOLDING
     }
 }

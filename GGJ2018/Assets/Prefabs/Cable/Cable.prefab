@@ -24,7 +24,8 @@ GameObject:
   - component: {fileID: 23021536011000028}
   - component: {fileID: 54620220327429526}
   - component: {fileID: 114742697629090664}
-  m_Layer: 9
+  - component: {fileID: 135690780552251620}
+  m_Layer: 8
   m_Name: Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +45,8 @@ GameObject:
   - component: {fileID: 23124859058521844}
   - component: {fileID: 54087532432191814}
   - component: {fileID: 114608945510280090}
-  m_Layer: 9
+  - component: {fileID: 135992855391951570}
+  m_Layer: 8
   m_Name: Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,9 +63,9 @@ GameObject:
   - component: {fileID: 4822186118380838}
   - component: {fileID: 114559845339827718}
   - component: {fileID: 120916697745738560}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cable
-  m_TagString: Untagged
+  m_TagString: Cable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,7 +77,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1578243688977496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.421, y: -9.891, z: 14.25}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4822186118380838}
@@ -88,7 +90,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1313914420811458}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.421, y: -9.891, z: 14.75}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.099999994, y: 0.099999994, z: 0.099999994}
   m_Children: []
   m_Father: {fileID: 4822186118380838}
@@ -101,7 +103,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1957152009278296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.9399998, y: 0, z: -3.3999996}
+  m_LocalPosition: {x: 6.45, y: -9.83, z: 11.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4218203071426478}
@@ -149,7 +151,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1578243688977496}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -157,7 +159,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2bd92147e2c8fc744b562b7974ae1f2d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -232,14 +234,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece752ae4e84e114cb80f15f9f2679a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connected: 0
-  broken: 0
-  looseMat: {fileID: 2100000, guid: 957684a60df8f0842a12b6da57713545, type: 2}
-  brokenMat: {fileID: 2100000, guid: effda23cf14d4324ca61f1e9ca4f7385, type: 2}
-  onlineMat: {fileID: 2100000, guid: d9012118ad5dd9e4fac21f353a5db46b, type: 2}
+  player: {fileID: 0}
   playerHand: {fileID: 0}
   MainSwitch: {fileID: 0}
   cablePiece: {fileID: 1522761280514454, guid: a59a1fd0f47265541bca70ce7ecb6f23, type: 2}
+  onlineMat: {fileID: 2100000, guid: d9012118ad5dd9e4fac21f353a5db46b, type: 2}
+  brokenMat: {fileID: 2100000, guid: effda23cf14d4324ca61f1e9ca4f7385, type: 2}
+  looseMat: {fileID: 2100000, guid: 957684a60df8f0842a12b6da57713545, type: 2}
   MainNode: {fileID: 0}
   maxLength: 45
   Length: 0
@@ -255,6 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabbed: 0
+  connected: 0
   speed: 5
   target: {fileID: 0}
 --- !u!114 &114742697629090664
@@ -269,6 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grabbed: 0
+  connected: 0
   speed: 5
   target: {fileID: 0}
 --- !u!120 &120916697745738560
@@ -371,6 +374,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135690780552251620
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1313914420811458}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135702323496535224
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -382,4 +397,16 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135992855391951570
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1578243688977496}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}

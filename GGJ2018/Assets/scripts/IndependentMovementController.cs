@@ -67,7 +67,6 @@ public class IndependentMovementController : MonoBehaviour {
 
     protected bool pathComplete()
     {
-        //Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance
         if (Vector3.Distance(agent.destination, agent.transform.position) <= agent.stoppingDistance)
         {
             if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)

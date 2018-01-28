@@ -7,6 +7,7 @@ public class Motor : MonoBehaviour
 {
     private Rigidbody rb;
     public bool grabbed = false;
+    public bool connected = false;
     public float speed = 100f;
     private float lerpSpeed = .45f;
 
@@ -28,6 +29,10 @@ public class Motor : MonoBehaviour
                 transform.position = Vector3.Lerp(transform.position, target.position, lerpSpeed);
             }
         }
+        if (connected)
+        {
+            transform.position = Vector3.Lerp(transform.position, target.position, lerpSpeed);
+        }
     }
 
     public void Grab()
@@ -41,8 +46,26 @@ public class Motor : MonoBehaviour
     public void UnGrab()
     {
         GameController.instance.status = GameController.GameControllerStatus.FREE_MOV;
+        GameController.instance.grabbedNull();
         if (rb == null) rb = GetComponent<Rigidbody>();
         grabbed = false;
+        rb.useGravity = true;
+        rb.isKinematic = false;
+    }
+
+    public void Connect()
+    {
+        if (rb == null) rb = GetComponent<Rigidbody>();
+        connected = true;
+        rb.useGravity = false;
+        rb.isKinematic = true;
+    }
+
+    public void UnConnect()
+    {
+        GameController.instance.connectedComputers.Remove(target.gameObject);
+        if (rb == null) rb = GetComponent<Rigidbody>();
+        connected = false;
         rb.useGravity = true;
         rb.isKinematic = false;
     }

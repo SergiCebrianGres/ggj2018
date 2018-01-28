@@ -30,7 +30,7 @@ public class PlayerMovementController : MonoBehaviour {
     {
         if (other.tag == "Computer")
         {
-
+            GameController.instance.setClosestComputer(other.gameObject);
         }
         if (other.tag == "Switch")
         {
@@ -42,7 +42,7 @@ public class PlayerMovementController : MonoBehaviour {
     {
         if (other.tag == "Computer")
         {
-
+            GameController.instance.setClosestComputer(null);
         }
         if (other.tag == "Switch")
         {

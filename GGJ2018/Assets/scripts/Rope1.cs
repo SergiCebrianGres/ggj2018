@@ -12,6 +12,13 @@ public class Rope1 : MonoBehaviour
     public GameObject MainSwitch;
     public GameObject cablePiece;
 
+    public Material onlineMat;
+    public Material brokenMat;
+    public Material looseMat;
+
+    private bool online = false;
+    private bool broken = false;
+
     public GameObject MainNode;
     private GameObject LastNode;
     private HingeJoint worldHinge;
@@ -95,16 +102,42 @@ public class Rope1 : MonoBehaviour
         {
             Transform t = transform.GetChild(i);
             lr.SetPosition(i, t.position);
-            if (motor.grabbed && i > 0 && i < Length - 1)
+            if ((motor.grabbed || motor.connected) && i > 0 && i < Length - 1)
             {
-                if ((t.position - transform.GetChild(i + 1).position).sqrMagnitude > 4f) motor.UnGrab();
+                if ((t.position - transform.GetChild(i + 1).position).sqrMagnitude > 4f)
+                {
+                    if (motor.grabbed) motor.UnGrab();
+                    if (motor.connected)
+                    {
+                        online = false;
+                        motor.UnConnect();
+                    }
+                }
             }
         }
+
+        if (broken) lr.material = brokenMat;
+        else if (online) lr.material = onlineMat;
+        else lr.material = looseMat;    
     }
 
     public void grab()
     {
         motor.target = playerHand.transform;
         motor.Grab();
+    }
+
+    public void connectTo(GameObject go)
+    {
+        online = true;
+        motor.target = go.transform;
+        motor.UnGrab();
+        motor.Connect();
+    }
+
+    public void disconnect(GameObject go)
+    {
+        online = false;
+        motor.UnConnect();
     }
 }
