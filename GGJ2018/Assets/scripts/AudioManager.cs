@@ -16,17 +16,17 @@ public class AudioManager : MonoBehaviour {
 		
 	}
 
-    public AudioClip getQueixa()
+    public AudioClip GetQueixa()
     {
         return queixes[Random.Range(0, queixes.Length)];
     }
 
-    public AudioClip getConnexio()
+    public AudioClip GetConnexio()
     {
         return connexions[Random.Range(0, connexions.Length)];
     }
 
-    public AudioClip getDesconnexio()
+    public AudioClip GetDesconnexio()
     {
         return desconnexions[Random.Range(0, desconnexions.Length)];
     }

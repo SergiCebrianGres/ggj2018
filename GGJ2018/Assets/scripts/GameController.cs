@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour {
             {
                 connectedComputers.Add(closestComputer);
                 grabbedRope.connectTo(closestComputer);
+                Camera.main.GetComponent<AudioManager>().GetConnexio();
             }
         } 
     }
@@ -107,6 +108,8 @@ public class GameController : MonoBehaviour {
             Debug.Log("Y voló");
             connectedComputers.Remove(r.connectedComputer);
             r.disconnect();
+            Camera.main.GetComponent<AudioManager>().GetDesconnexio();
+
         }
     }
 
