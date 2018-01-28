@@ -26,7 +26,6 @@ public class HappyBar : MonoBehaviour {
 
     public void RepaintHappiness(double d)
     {
-        Debug.Log("Repainting with " + d);
         content.fillAmount = (float)d;
         content.color = Color.Lerp(lowColor, fullColor, (float)d);
     }

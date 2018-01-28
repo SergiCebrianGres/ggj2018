@@ -61,7 +61,6 @@ public class GameController : MonoBehaviour {
         var kilian = GameObject.Find("Kilian2");
         if (kilian != null)
         {
-            Debug.Log("hello kilian");
             kilian.GetComponent<PlayerMovementController>().enabled = true;
             kilian.GetComponent<ThirdPersonCharacter>().enabled = true;
             kilian.GetComponent<ThirdPersonUserControl>().enabled = true;
@@ -147,7 +146,6 @@ public class GameController : MonoBehaviour {
     {
         if (r.online && UnityEngine.Random.Range(0.0f, 1.0f) < probBreak)
         {
-            Debug.Log("Y voló");
             connectedComputers.Remove(r.connectedComputer);
             var audio = r.connectedComputer.GetComponent<AudioSource>();
             audio.clip = Camera.main.GetComponent<AudioManager>().GetDesconnexio();
@@ -203,7 +201,6 @@ public class GameController : MonoBehaviour {
                 var kilian = GameObject.Find("Kilian2");
                 if(kilian != null)
                 {
-                    Debug.Log("game over killian");
                     kilian.GetComponent<PlayerMovementController>().enabled = false;
                     kilian.GetComponent<ThirdPersonCharacter>().enabled = false;
                     kilian.GetComponent<ThirdPersonUserControl>().enabled = false;
