@@ -13,6 +13,7 @@ public class IAController : MonoBehaviour {
     private float hungerStep;
     private float urgeStep;
     private Vector3 tablePosition;
+    private Quaternion tableOrientation;
     private float timer;
     private float foodTimer;
     private float bathroomTimer;
@@ -29,6 +30,7 @@ public class IAController : MonoBehaviour {
         hungerStep = 1f;
         urgeStep = 1f;
         tablePosition = transform.position;
+        tableOrientation = transform.rotation;
         timer = 0f;
         foodTimer = 0f;
         bathroomTimer = 0f;
@@ -117,6 +119,7 @@ public class IAController : MonoBehaviour {
         switch (state)
         {
             case IAState.WAITING:
+                transform.rotation = tableOrientation;
                 break;
             case IAState.TO_BATHROOM:
                 state = IAState.BATHROOM;

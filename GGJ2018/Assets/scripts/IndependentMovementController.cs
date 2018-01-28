@@ -29,7 +29,6 @@ public class IndependentMovementController : MonoBehaviour {
                 GetComponent<IAController>().NotifyEndOfRoad();
                 agent.updatePosition = false;
                 agent.updateRotation = false;
-
             }
 
         } else
