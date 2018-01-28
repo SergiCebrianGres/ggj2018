@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
+//using UnityEditor;
 
 public enum moveMode
 {
@@ -108,7 +108,7 @@ public class Rail : MonoBehaviour
         
         return Quaternion.Lerp(q1, q2, ratio);
     }
-
+    /*
     private void OnDrawGizmos()
     {
         if (gizmo)
@@ -119,5 +119,5 @@ public class Rail : MonoBehaviour
                 Handles.DrawDottedLine(nodes[i].position, nodes[i + 1].position, 3);
             }
         }
-    }
+    }*/
 }

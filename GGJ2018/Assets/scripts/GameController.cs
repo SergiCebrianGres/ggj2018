@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour {
     public float probBreak = 0.03f;
     
     public GameObject cablePrefab;
+    public GameObject panelGameOver;
 
     public List<GameObject> connectedComputers;
     public List<Rope1> cables;
@@ -208,7 +209,7 @@ public class GameController : MonoBehaviour {
 
                 }
                 Camera.main.GetComponent<Timer>().Stop();
-
+                panelGameOver.SetActive(true);
             }
             if(happybar == null)
             {
@@ -228,7 +229,5 @@ public class GameController : MonoBehaviour {
                 SceneManager.LoadScene(0);
             }
         }
-        
-
     }
 }
