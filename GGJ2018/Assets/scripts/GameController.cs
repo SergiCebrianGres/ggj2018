@@ -2,6 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class GameController : MonoBehaviour {
     public GameControllerStatus status;
@@ -41,7 +43,6 @@ public class GameController : MonoBehaviour {
         else if (instance != this)
             Destroy(gameObject);
         
-        DontDestroyOnLoad(gameObject);
         InitGame();
     }
 
@@ -54,6 +55,17 @@ public class GameController : MonoBehaviour {
         happiness = 1d;
 
         happybar = GameObject.Find("HappyBar");
+        GetComponent<RailMover>().enabled = false;
+        GetComponent<SmoothCamera>().enabled = true;
+        Camera.main.GetComponent<Timer>().Run();
+        var kilian = GameObject.Find("Kilian2");
+        if (kilian != null)
+        {
+            Debug.Log("hello kilian");
+            kilian.GetComponent<PlayerMovementController>().enabled = true;
+            kilian.GetComponent<ThirdPersonCharacter>().enabled = true;
+            kilian.GetComponent<ThirdPersonUserControl>().enabled = true;
+        }
     }
 
 
@@ -186,6 +198,19 @@ public class GameController : MonoBehaviour {
             if (happiness <= 0)
             {
                 gameOver = true;
+                GetComponent<RailMover>().enabled = true;
+                GetComponent<SmoothCamera>().enabled = false;
+                var kilian = GameObject.Find("Kilian2");
+                if(kilian != null)
+                {
+                    Debug.Log("game over killian");
+                    kilian.GetComponent<PlayerMovementController>().enabled = false;
+                    kilian.GetComponent<ThirdPersonCharacter>().enabled = false;
+                    kilian.GetComponent<ThirdPersonUserControl>().enabled = false;
+
+
+                }
+                Camera.main.GetComponent<Timer>().Stop();
 
             }
             if(happybar == null)
@@ -197,8 +222,16 @@ public class GameController : MonoBehaviour {
             {
                 sc.RepaintHappiness(happiness);
             }
+
+            accTime += Time.deltaTime;
+        } else
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(0);
+            }
         }
-        accTime += Time.deltaTime;
         
+
     }
 }
